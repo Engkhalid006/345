@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Watch - مشاهدة الأفلام والمسلسلات والأنمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #e50914;
+            --primary-dark: #b20710;
+            --dark: #141414;
+            --darker: #0a0a0a;
+            --light: #f5f5f5;
+            --gray: #808080;
+            --light-gray: #e6e6e6;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--primary), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+        
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 5px 10px;
+            transition: var(--transition);
+        }
+        
+        .search-box.active {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--light);
+            padding: 5px 10px;
+            width: 0;
+            outline: none;
+            transition: var(--transition);
+            opacity: 0;
+        }
+        
+        .search-box.active input {
+            width: 200px;
+            opacity: 1;
+        }
+        
+        .search-btn {
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), #ff6b6b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            position: relative;
+            background: linear-gradient(to top, var(--darker), transparent),
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 5% 5%;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .hero-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--light-gray);
+        }
+        
+        .hero-info span {
+            color: #46d369;
+            font-weight: bold;
+        }
+        
+        .hero-description {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #e6e6e6;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--light);
+            color: var(--darker);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(109,109,110,0.7);
+            color: var(--light);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(109,109,110,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 40px 5% 20px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .movie-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            aspect-ratio: 2/3;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform-origin: center bottom;
+        }
+        
+        .movie-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .movie-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .movie-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px 15px 15px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .movie-card:hover .movie-overlay {
+            opacity: 1;
+        }
+        
+        .movie-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+        
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .movie-rating {
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .sync-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .sync-progress {
+            width: 200px;
+            height: 5px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .sync-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.8);
+            padding: 60px 5% 30px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-right: 8px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                padding: 15px 5%;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            nav {
+                order: 3;
+                width: 100%;
+                margin-top: 15px;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                padding-bottom: 5px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-description {
+                font-size: 0.95rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .search-box.active input {
+                width: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-info {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .movies-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            
+            .user-avatar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo" id="home-btn">
+            <i class="fas fa-play-circle"></i>
+            <h1>For Watch</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#">الأفلام</a></li>
+                <li><a href="#">المسلسلات</a></li>
+                <li><a href="#">الأنمي</a></li>
+                <li><a href="#">الأكثر مشاهدة</a></li>
+            </ul>
+        </nav>
+        
+        <div class="user-controls">
+            <div class="search-box" id="search-box">
+                <div class="search-btn" id="search-btn">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" id="search-input" placeholder="ابحث عن فيلم أو مسلسل...">
+            </div>
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">أفاتار: طريق الماء</h1>
+            <div class="hero-info">
+                <span>98% Match</span>
+                <span>2022</span>
+                <span>3h 12m</span>
+                <span>PG-13</span>
+            </div>
+            <p class="hero-description">
+                يستكشف جيك سولي ونيتيري عوالم باندورا الجديدة، ويشكلان روابط مع شعبها، ويواجهان تهديدات جديدة في رحلة مليئة بالمغامرة والخطر.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="play-hero">
+                    <i class="fas fa-play"></i> مشاهدة الآن
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> معلومات
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <div class="categories">
+        <h2 class="section-title"><i class="fas fa-fire"></i> الأكثر مشاهدة اليوم</h2>
+        <div class="movies-grid" id="trending-content">
+            <!-- Content will be loaded dynamically -->
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-film"></i> أحدث الأفلام</h2>
+        <div class="movies-grid" id="movies-content">
+            <!-- Content will be loaded dynamically -->
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-tv"></i> أحدث المسلسلات</h2>
+        <div class="movies-grid" id="series-content">
+            <!-- Content will be loaded dynamically -->
+        </div>
+        
+        <h2 class="section-title"><i class="fas fa-dragon"></i> أفضل الأنمي</h2>
+        <div class="movies-grid" id="anime-content">
+            <!-- Content will be loaded dynamically -->
+        </div>
+    </div>
+    
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="sync-info">
+            <i class="fas fa-sync-alt"></i>
+            <span id="sync-status">جاري تحديث المحتوى من web3.topcinema.fun...</span>
+        </div>
+        <div class="sync-progress">
+            <div class="sync-progress-bar" id="sync-progress"></div>
+        </div>
+        <div class="next-sync" id="next-sync">
+            التحديث القادم خلال: <span id="sync-timer">30:00</span>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>عن For Watch</h3>
+                <p>أكبر مكتبة أفلام ومسلسلات وأنمي بجودة عالية وواجهة سهلة الاستخدام.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/_gq6" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>روابط سريعة</h3>
+                <div class="footer-links">
+                    <a href="#">الرئيسية</a>
+                    <a href="#">الأفلام</a>
+                    <a href="#">المسلسلات</a>
+                    <a href="#">الأنمي</a>
+                    <a href="#">الأكثر مشاهدة</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>الدعم الفني</h3>
+                <div class="footer-links">
+                    <a href="#">مركز المساعدة</a>
+                    <a href="#">اتصل بنا</a>
+                    <a href="#">الإبلاغ عن مشكلة</a>
+                    <a href="#">الأسئلة الشائعة</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>الحساب</h3>
+                <div class="footer-links">
+                    <a href="#">تسجيل الدخول</a>
+                    <a href="#">إنشاء حساب</a>
+                    <a href="#">إدارة الحساب</a>
+                    <a href="#">الإعدادات</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 For Watch. جميع الحقوق محفوظة. | تم ربط المحتوى مع <a href="https://web3.topcinema.fun" target="_blank" style="color: var(--primary);">web3.topcinema.fun</a>
+        </div>
+    </footer>
+    
+    <script>
+        // Movie data from web3.topcinema.fun (simulated)
+        const moviesData = [
+            {
+                id: 1,
+                title: "جون ويك 4",
+                year: 2023,
+                rating: 8.0,
+                genre: "أكشن، إثارة",
+                duration: "2h 49m",
+                age: "R",
+                description: "جون ويك يكتشف طريقًا لهزيمة النقابة العليا. ولكن قبل أن يتمكن من كسب حريته، يجب أن يواجه عدوًا جديدًا ذا تحالفات قوية في جميع أنحاء العالم.",
+                director: "تشاد ستاهيلسكي",
+                cast: "كيان ريفز، دوني ين، بيل سكارسجارد",
+                image: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+                type: "movie"
+            },
+            {
+                id: 2,
+                title: "العنكبوت: عبر الأكوان",
+                year: 2023,
+                rating: 9.1,
+                genre: "أنيميشن، أكشن",
+                duration: "2h 20m",
+                age: "PG",
+                description: "مايلز موراليس يعبر الأكوان المتعددة، حيث يواجه فريقًا من الأبطال من عوالم أخرى لحماية كل شيء.",
+                director: "جواكيم دوس سانتوس",
+                cast: "شاميك مور، هايلي ستاينفيلد، أوسكار إسحاق",
+                image: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
+                type: "movie"
+            },
+            {
+                id: 3,
+                title: "المهمة المستحيلة",
+                year: 2023,
+                rating: 8.3,
+                genre: "أكشن، إثارة",
+                duration: "2h 43m",
+                age: "PG-13",
+                description: "إيثان هانت وفريق عمل IMF يواجهون أخطر مهمة لهم حتى الآن: تتبع سلاح جديد مخيف يهدد البشرية جمعاء.",
+                director: "كريستوفر ماكوري",
+                cast: "توم كروز، هايلي أتويل، سايمون بيج",
+                image: "https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg",
+                type: "movie"
+            },
+            {
+                id: 4,
+                title: "أوبنهايمر",
+                year: 2023,
+                rating: 8.7,
+                genre: "دراما، تاريخي",
+                duration: "3h",
+                age: "R",
+                description: "قصة العالم جيه روبرت أوبنهايمر ودوره في تطوير القنبلة الذرية خلال الحرب العالمية الثانية.",
+                director: "كريستوفر نولان",
+                cast: "كيليان مورفي، إميلي بلانت، مات ديمون",
+                image: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+                type: "movie"
+            },
+            {
+                id: 5,
+                title: "سريع وغاضب 10",
+                year: 2023,
+                rating: 7.0,
+                genre: "أكشن، إثارة",
+                duration: "2h 21m",
+                age: "PG-13",
+                description: "دوم توريتو وعائلته يواجهون العدو الأكثر رعبًا ومهارة الذي واجهوه على الإطلاق.",
+                director: "لويس ليتيرييه",
+                cast: "فين ديزل، جيسون موموا، شارليز ثيرون",
+                image: "https://image.tmdb.org/t/p/w500/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
+                type: "movie"
+            },
+            {
+                id: 6,
+                title: "الحارس الأخير",
+                year: 2023,
+                rating: 7.8,
+                genre: "خيال علمي، أكشن",
+                duration: "2h 5m",
+                age: "PG-13",
+                description: "في عالم ما بعد الكارثة، يحاول الحارس الأخير حماية المجتمع الصغير الذي يعيش فيه.",
+                director: "جيمس مانغولد",
+                cast: "توم هانكس، كاليب لاندري جونز",
+                image: "https://image.tmdb.org/t/p/w500/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg",
+                type: "movie"
+            }
+        ];
+
+        const seriesData = [
+            {
+                id: 13,
+                title: "لعبة العروش",
+                year: 2023,
+                rating: 9.5,
+                genre: "فانتازيا، دراما",
+                seasons: 8,
+                episodes: 73,
+                age: "TV-MA",
+                description: "عائلات نبيلة تتنافس للسيطرة على عرش وستروس في عالم حيث يتجلى الشتاء الطويل.",
+                director: "ديفيد بينيوف، دي. بي. وايس",
+                cast: "إيميليا كلارك، كيت هارينغتون، بيتر دنكليج",
+                image: "https://image.tmdb.org/t/p/w500/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                type: "series"
+            },
+            {
+                id: 14,
+                title: "براكن باد",
+                year: 2023,
+                rating: 9.3,
+                genre: "جريمة، دراما",
+                seasons: 5,
+                episodes: 62,
+                age: "TV-MA",
+                description: "معلم كيمياء ثانوي يتحول إلى إمبراطور مخدرات بعد تشخيص إصابته بسرطان الرئة.",
+                director: "فنسنت غيليجان",
+                cast: "براين كرانستون، آرون بول، آنا غان",
+                image: "https://image.tmdb.org/t/p/w500/7PRddOlgcNGvD2s3A0MqD9L3jFd.jpg",
+                type: "series"
+            },
+            {
+                id: 15,
+                title: "الطبيب",
+                year: 2023,
+                rating: 9.0,
+                genre: "خيال علمي، دراما",
+                seasons: 13,
+                episodes: 156,
+                age: "TV-14",
+                description: "مغامرات الطبيب الذي يسافر عبر الزمان والمكان في صندوقه الزمني TARDIS.",
+                director: "كريس شيبال",
+                cast: "ديفيد تينانت، مات سميث، جودي ويتاكر",
+                image: "https://image.tmdb.org/t/p/w500/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                type: "series"
+            },
+            {
+                id: 16,
+                title: "فاندوم",
+                year: 2023,
+                rating: 8.8,
+                genre: "دراما، جريمة",
+                seasons: 3,
+                episodes: 24,
+                age: "TV-MA",
+                description: "تحقيق في جريمة قتل في مدينة صغيرة تكشف عن أسرار مظلمة وعلاقات معقدة بين سكانها.",
+                director: "جان مارك فالي",
+                cast: "ماثيو ماكونهي، وودي هارلسون، ميشيل موناغان",
+                image: "https://image.tmdb.org/t/p/w500/8u0QBGUbZcBW59VEAdmeFl9g98N.jpg",
+                type: "series"
+            },
+            {
+                id: 17,
+                title: "الظلام",
+                year: 2023,
+                rating: 8.7,
+                genre: "غموض، خيال علمي",
+                seasons: 3,
+                episodes: 26,
+                age: "TV-MA",
+                description: "اختفاء طفل يكشف عن فجوات بين أربع عائلات في مدينة ألمانية صغيرة، مع سفر عبر الزمن.",
+                director: "باران بو عدار",
+                cast: "لويس هوفمان، أندريا بيتزولد، ليزا فيكاري",
+                image: "https://image.tmdb.org/t/p/w500/5Lo5U7qwc4XhQ2dC4y6y6QwUwEW.jpg",
+                type: "series"
+            },
+            {
+                id: 18,
+                title: "الغريب",
+                year: 2023,
+                rating: 8.6,
+                genre: "رعب، خيال علمي",
+                seasons: 4,
+                episodes: 34,
+                age: "TV-14",
+                description: "عندما يختفي صبي صغير، تكشف مدينة صغيرة عن مؤامرة سرية وتجارب غريبة مع قوى خارقة.",
+                director: "ديفر براذرز",
+                cast: "وينونا رايدر، ديفيد هاربر، فين ولفهارد",
+                image: "https://image.tmdb.org/t/p/w500/7drO1kYgQ0PnnU87sAnBEphYcSM.jpg",
+                type: "series"
+            }
+        ];
+
+        const animeData = [
+            {
+                id: 19,
+                title: "ناروتو شيبودن",
+                year: 2023,
+                rating: 8.7,
+                genre: "أكشن، مغامرة",
+                episodes: 500,
+                age: "TV-14",
+                description: "مغامرات ناروتو أوزوماكي وهو شينوبي صغير من قرية كونوها يطمح ليصبح الهوكاج.",
+                director: "ماساشي كيشيموتو",
+                cast: "جونكو تاكوتشي، نوريوكي سوغياما",
+                image: "https://image.tmdb.org/t/p/w500/vauCEnR7CiyBDzRCeElKkCaXIYu.jpg",
+                type: "anime"
+            },
+            {
+                id: 20,
+                title: "هجوم العمالقة",
+                year: 2023,
+                rating: 9.1,
+                genre: "أكشن، دراما",
+                episodes: 75,
+                age: "TV-MA",
+                description: "في عالم حيث البشرية تعيش داخل مدن محاطة بأسوار ضخمة للحماية من العمالقة آكلي البشر.",
+                director: "هاجيمي إيساياما",
+                cast: "يومي كوغا، كاجي يوسكي، يوي إيشيكاوا",
+                image: "https://image.tmdb.org/t/p/w500/ai8YzD5v7L7ACImq1lVfve8dDv5.jpg",
+                type: "anime"
+            },
+            {
+                id: 21,
+                title: "ون بيس",
+                year: 2023,
+                rating: 8.8,
+                genre: "مغامرة، كوميديا",
+                episodes: 1000,
+                age: "TV-14",
+                description: "مونكي دي لوفي وطاقمه من القراصنة يبحثون عن الكنز الأسطوري ون بيس ليصبحوا ملك القراصنة.",
+                director: "إييتشيرو أودا",
+                cast: "ماي تاناكا، أكيمي أوكامورا",
+                image: "https://image.tmdb.org/t/p/w500/4Mt7WHox67uJ1yErwTBFcV8KWgG.jpg",
+                type: "anime"
+            },
+            {
+                id: 22,
+                title: "دمون سلاير",
+                year: 2023,
+                rating: 8.9,
+                genre: "أكشن، خيال",
+                episodes: 26,
+                age: "TV-MA",
+                description: "تانجيرو كامادو يصبح صائد شياطين للانتقام لمقتل عائلته وتحويل أخته إلى شيطان.",
+                director: "كويوهارو غوتوغي",
+                cast: "ناتسوكي هاناي، أكاري كيتو",
+                image: "https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg",
+                type: "anime"
+            },
+            {
+                id: 23,
+                title: "بليتش",
+                year: 2023,
+                rating: 8.2,
+                genre: "أكشن، خيال",
+                episodes: 366,
+                age: "TV-14",
+                description: "إيتشيغو كوروساكي المراهق الذي يكتسب قوى صائد الأرواح ويحمي البشر من الأرواح الشريرة.",
+                director: "تايت كوبو",
+                cast: "ماساكازو موريتا، فوميكو أوري كاساهارا",
+                image: "https://image.tmdb.org/t/p/w500/2Eew5XagC0CbbZ5R0pVn4zKdJ3v.jpg",
+                type: "anime"
+            },
+            {
+                id: 24,
+                title: "هجوم العمالقة: الموسم الأخير",
+                year: 2023,
+                rating: 9.4,
+                genre: "أكشن، دراما",
+                episodes: 16,
+                age: "TV-MA",
+                description: "المواجهة النهائية بين إرين وأصدقائه في معركة تحدد مصير العالم.",
+                director: "هاجيمي إيساياما",
+                cast: "يومي كوغا، كاجي يوسكي",
+                image: "https://image.tmdb.org/t/p/w500/6qbiugV5QlV5Ua9XknW1sxVZ5e8.jpg",
+                type: "anime"
+            }
+        ];
+
+        // DOM Elements
+        const searchBox = document.getElementById('search-box');
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('search-input');
+        const trendingContent = document.getElementById('trending-content');
+        const moviesContent = document.getElementById('movies-content');
+        const seriesContent = document.getElementById('series-content');
+        const animeContent = document.getElementById('anime-content');
+        const syncStatus = document.getElementById('sync-status');
+        const syncProgress = document.getElementById('sync-progress');
+        const syncTimer = document.getElementById('sync-timer');
+        const nextSync = document.getElementById('next-sync');
+
+        // Initialize the site
+        function initializeSite() {
+            loadContent();
+            startSyncTimer();
+            simulateContentSync();
+        }
+
+        // Load content into the page
+        function loadContent() {
+            // Load trending content (mix of movies and series)
+            const trending = [...moviesData.slice(0, 3), ...seriesData.slice(0, 3)];
+            renderContent(trending, trendingContent);
+
+            // Load movies
+            renderContent(moviesData, moviesContent);
+            
+            // Load series
+            renderContent(seriesData, seriesContent);
+            
+            // Load anime
+            renderContent(animeData, animeContent);
+        }
+
+        // Render content to a grid
+        function renderContent(data, container) {
+            container.innerHTML = '';
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.setAttribute('data-id', item.id);
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="movie-overlay">
+                        <h3 class="movie-title">${item.title}</h3>
+                        <div class="movie-meta">
+                            <span>${item.year}</span>
+                            <span class="movie-rating"><i class="fas fa-star"></i> ${item.rating}</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Simulate content syncing
+        function simulateContentSync() {
+            syncStatus.textContent = "جاري تحديث المحتوى من web3.topcinema.fun...";
+            syncProgress.style.width = "0%";
+            
+            // Simulate progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                syncProgress.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    syncStatus.textContent = "تم تحديث المحتوى بنجاح!";
+                    setTimeout(() => {
+                        syncStatus.textContent = "المحتوى محدث";
+                        syncProgress.style.width = "100%";
+                    }, 2000);
+                }
+            }, 200);
+        }
+
+        // Sync timer
+        function startSyncTimer() {
+            let minutes = 30;
+            let seconds = 0;
+            
+            const timer = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        // Reset timer
+                        minutes = 30;
+                        seconds = 0;
+                        simulateContentSync();
+                    } else {
+                        minutes--;
+                        seconds = 59;
+                    }
+                } else {
+                    seconds--;
+                }
+                
+                syncTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Search functionality
+        searchBtn.addEventListener('click', () => {
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.length > 0) {
+                // Search in all content
+                const allContent = [...moviesData, ...seriesData, ...animeData];
+                const results = allContent.filter(item => 
+                    item.title.toLowerCase().includes(searchTerm) ||
+                    item.genre.toLowerCase().includes(searchTerm) ||
+                    item.director.toLowerCase().includes(searchTerm)
+                );
+                
+                // Display results in trending section
+                renderContent(results, trendingContent);
+                
+                // Hide other sections
+                moviesContent.style.display = 'none';
+                seriesContent.style.display = 'none';
+                animeContent.style.display = 'none';
+            } else {
+                // Restore original content
+                loadContent();
+                moviesContent.style.display = 'grid';
+                seriesContent.style.display = 'grid';
+                animeContent.style.display = 'grid';
+            }
+        });
+
+        // Initialize the site when loaded
+        window.addEventListener('DOMContentLoaded', initializeSite);
+    </script>
+</body>
+</html>
